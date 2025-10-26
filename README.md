@@ -2,8 +2,11 @@
 <img width="1919" height="970" alt="image" src="https://github.com/user-attachments/assets/844afba1-2def-4138-9e5a-c2aaf30d6442" />
 <img width="1917" height="906" alt="image" src="https://github.com/user-attachments/assets/cb99cf98-bd0b-4004-a39c-c839e9dc570d" />
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6f1ff895-1973-406f-9c6e-19d8629f5fb0" />
+<img width="1919" height="914" alt="image" src="https://github.com/user-attachments/assets/9f73e11f-f63b-48b5-ac30-b4c360f980e4" />
 <img width="1917" height="908" alt="image" src="https://github.com/user-attachments/assets/08a5ee0d-5c2b-4d76-80d5-b1d396fcef41" />
 <img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/db8fb20d-86e3-4d96-ba75-f49f53bbe9b2" />
+
+
 Seu catálogo pessoal de filmes com busca por IA, importação em massa e interface estilo Netflix
 
 
