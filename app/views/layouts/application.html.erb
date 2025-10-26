@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CineMind</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 2px solid #ef4444;
+      padding: 1.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ef4444;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: all 0.3s;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+      color: white !important;
+      padding: 0.8rem 1.6rem !important;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.5) !important;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      min-height: calc(100vh - 200px);
+    }
+
+    .alert {
+      padding: 1.2rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      animation: slideIn 0.4s ease-out;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .alert-info {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+      border-left: 4px solid #3b82f6;
+      color: #93c5fd;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid #ef4444;
+      padding: 2.5rem;
+      text-align: center;
+      color: #64748b;
+      margin-top: 5rem;
+    }
+
+    footer p {
+      margin: 0.5rem 0;
+    }
+
+    footer a {
+      color: #ef4444;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #dc2626;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .container {
+        padding: 2rem 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <%= link_to "🎬 CineMind", root_path, class: "logo" %>
+      <ul class="nav-links">
+        <li><%= link_to "Filmes", movies_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "➕ Novo Filme", new_movie_path %></li>
+          <li><%= link_to "📤 Importar CSV", new_movie_import_path %></li>
+          <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Entrar", new_user_session_path, class: "btn-primary" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <% if notice %>
+      <div class="alert alert-info">
+        <span>✅</span>
+        <span><%= notice %></span>
+      </div>
+    <% end %>
+    <%= yield %>
+  </div>
+
+  <footer>
+    <p>🎬 <strong>CineMind</strong> © 2025</p>
+    <p><small>Catálogo de Filmes com IA • Feito em Rails</small></p>
+  </footer>
+</body>
+</html>

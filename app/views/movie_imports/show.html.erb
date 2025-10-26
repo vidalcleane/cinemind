@@ -1,0 +1,59 @@
+<div class="max-w-3xl mx-auto p-6">
+  <%= link_to "← Voltar", movies_path, class: "text-blue-600 hover:text-blue-700 mb-6 inline-block" %>
+
+  <div class="bg-white rounded-lg shadow-lg p-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Status da Importação</h1>
+
+    <div class="space-y-4">
+      <div>
+        <p class="text-gray-600">Nome: <strong><%= @movie_import.file_name %></strong></p>
+      </div>
+
+      <div>
+        <p class="text-gray-600 mb-2">Status: 
+          <span class="px-3 py-1 rounded-full text-sm font-semibold
+            <%= case @movie_import.status
+              when 'completed' then 'bg-green-100 text-green-800'
+              when 'processing' then 'bg-blue-100 text-blue-800'
+              when 'failed' then 'bg-red-100 text-red-800'
+              else 'bg-gray-100 text-gray-800'
+            end %>">
+            <%= @movie_import.status.upcase %>
+          </span>
+        </p>
+      </div>
+
+      <% if @movie_import.total_rows && @movie_import.total_rows > 0 %>
+        <div>
+          <p class="text-gray-600 mb-2">Progresso: <%= @movie_import.processed_rows %> / <%= @movie_import.total_rows %></p>
+          <div class="w-full bg-gray-200 rounded-full h-4">
+            <div class="bg-indigo-600 h-4 rounded-full transition-all duration-300"
+              style="width: <%= (@movie_import.processed_rows.to_f / @movie_import.total_rows * 100).round %>%">
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @movie_import.errors.present? %>
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+          <h4 class="font-bold text-yellow-800 mb-2">⚠ Avisos/Erros:</h4>
+          <pre class="text-sm text-yellow-700 whitespace-pre-wrap"><%= @movie_import.errors %></pre>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @movie_import.status == 'processing' %>
+      <script>
+        setInterval(function() {
+          fetch('<%= status_movie_import_path(@movie_import) %>')
+            .then(response => response.json())
+            .then(data => {
+              if (data.status !== 'processing') {
+                location.reload();
+              }
+            });
+        }, 3000);
+      </script>
+    <% end %>
+  </div>
+</div>

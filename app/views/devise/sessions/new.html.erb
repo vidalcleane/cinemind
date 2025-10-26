@@ -1,0 +1,271 @@
+<style>
+  .auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    animation: gradientShift 10s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  
+  .auth-box {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .auth-logo {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .auth-logo h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  
+  .auth-logo p {
+    color: #94a3b8;
+    font-size: 1rem;
+  }
+  
+  .auth-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .form-group-auth {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label-auth {
+    display: block;
+    color: #e2e8f0;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+  }
+  
+  .form-input-auth {
+    width: 100%;
+    background: rgba(30, 41, 59, 0.8);
+    border: 2px solid rgba(148, 163, 184, 0.3);
+    border-radius: 10px;
+    color: white;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+  
+  .form-input-auth:focus {
+    outline: none;
+    border-color: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+    background: rgba(30, 41, 59, 1);
+  }
+  
+  .form-input-auth::placeholder {
+    color: #64748b;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .remember-me input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .remember-me label {
+    color: #cbd5e1;
+    cursor: pointer;
+  }
+  
+  .btn-auth {
+    width: 100%;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+  }
+  
+  .btn-auth:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(239, 68, 68, 0.5);
+  }
+  
+  .auth-links {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.95rem;
+  }
+  
+  .auth-links a {
+    color: #ef4444;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s;
+  }
+  
+  .auth-links a:hover {
+    color: #dc2626;
+    text-decoration: underline;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(148, 163, 184, 0.3);
+  }
+  
+  .divider span {
+    padding: 0 1rem;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  
+  .alert-auth {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid #ef4444;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    color: #fca5a5;
+    animation: shake 0.5s;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+  }
+</style>
+
+<div class="auth-container">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <h1>🎬 CineMind</h1>
+      <p>Seu catálogo pessoal de filmes</p>
+    </div>
+    
+    <h2 class="auth-title">Entrar</h2>
+    
+    <% if alert %>
+      <div class="alert-auth">
+        ⚠ <%= alert %>
+      </div>
+    <% end %>
+    
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-group-auth">
+        <%= f.label :email, "E-mail", class: "form-label-auth" %>
+        <%= f.email_field :email, 
+            autofocus: true, 
+            autocomplete: "email",
+            class: "form-input-auth",
+            placeholder: "seu@email.com"
+        %>
+      </div>
+      
+      <div class="form-group-auth">
+        <%= f.label :password, "Senha", class: "form-label-auth" %>
+        <%= f.password_field :password, 
+            autocomplete: "current-password",
+            class: "form-input-auth",
+            placeholder: "••••••••"
+        %>
+      </div>
+      
+      <% if devise_mapping.rememberable? %>
+        <div class="remember-me">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, "Lembrar de mim" %>
+        </div>
+      <% end %>
+      
+      <%= f.submit "Entrar", class: "btn-auth" %>
+    <% end %>
+    
+    <div class="divider">
+      <span>ou</span>
+    </div>
+    
+    <div class="auth-links">
+      <%= link_to "Criar nova conta", new_registration_path(resource_name) %><br>
+      <% if devise_mapping.recoverable? %>
+        <%= link_to "Esqueci minha senha", new_password_path(resource_name) %>
+      <% end %>
+    </div>
+  </div>
+</div>

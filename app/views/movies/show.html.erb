@@ -1,0 +1,554 @@
+<style>
+  .movie-hero {
+    position: relative;
+    height: 80vh;
+    margin: -3rem -2rem 0 -2rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(15,23,42,0.9) 100%);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  
+  .movie-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(15,23,42,1) 0%, transparent 50%, rgba(15,23,42,0.8) 100%);
+    z-index: 1;
+  }
+  
+  .movie-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4);
+  }
+  
+  .movie-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    width: 100%;
+  }
+  
+  .movie-main-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  .movie-meta-info {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+  
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .rating {
+    background: #fbbf24;
+    color: #000;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 700;
+  }
+  
+  .movie-synopsis {
+    max-width: 700px;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+  
+  .movie-categories-hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+  }
+  
+  .category-tag {
+    background: rgba(239, 68, 68, 0.3);
+    border: 2px solid #ef4444;
+    color: #fca5a5;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+  }
+  
+  .btn-large {
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .btn-watch-now {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+  }
+  
+  .btn-watch-now:hover {
+    background: #dc2626;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(239, 68, 68, 0.6);
+  }
+  
+  .btn-edit-movie {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 2px solid #fbbf24;
+  }
+  
+  .btn-edit-movie:hover {
+    background: rgba(251, 191, 36, 0.4);
+    transform: translateY(-3px);
+  }
+  
+  .btn-delete {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 2px solid #ef4444;
+  }
+  
+  .btn-delete:hover {
+    background: rgba(239, 68, 68, 0.4);
+  }
+  
+  .movie-details-section {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  
+  .info-card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+  }
+  
+  .info-card h3 {
+    font-size: 1.5rem;
+    color: #ef4444;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  }
+  
+  .info-item:last-child {
+    border-bottom: none;
+  }
+  
+  .info-label {
+    color: #94a3b8;
+    font-weight: 600;
+  }
+  
+  .info-value {
+    color: #e2e8f0;
+    font-weight: 700;
+  }
+  
+  .comments-section {
+    margin-top: 4rem;
+  }
+  
+  .section-header {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .comment-form {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .comment-form textarea {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    border: 2px solid rgba(148, 163, 184, 0.2);
+    border-radius: 8px;
+    color: #e2e8f0;
+    padding: 1.2rem;
+    font-size: 1rem;
+    min-height: 120px;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+  }
+  
+  .comment-form textarea:focus {
+    outline: none;
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+  
+  .btn-submit-comment {
+    background: #ef4444;
+    color: white;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .btn-submit-comment:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+  }
+  
+  .comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .comment-card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+  }
+  
+  .comment-card:hover {
+    border-color: rgba(239, 68, 68, 0.3);
+    transform: translateX(5px);
+  }
+  
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .comment-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .author-info h4 {
+    color: #e2e8f0;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  
+  .comment-date {
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+  
+  .comment-body {
+    color: #cbd5e1;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  .btn-delete-comment {
+    background: transparent;
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+  }
+  
+  .btn-delete-comment:hover {
+    background: rgba(239, 68, 68, 0.2);
+  }
+  
+  .empty-comments {
+    text-align: center;
+    padding: 3rem;
+    color: #64748b;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .movie-main-title {
+      font-size: 2.5rem;
+    }
+    
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+    }
+    
+    .btn-large {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<!-- Movie Hero Section -->
+<div class="movie-hero">
+  <% if @movie.poster.attached? %>
+    <%= image_tag @movie.poster, class: "movie-backdrop", alt: @movie.title %>
+  <% end %>
+  
+  <div class="movie-hero-content">
+    <h1 class="movie-main-title"><%= @movie.title %></h1>
+    
+    <div class="movie-meta-info">
+      <% if @movie.year %>
+        <div class="meta-item">
+          <span>📅</span>
+          <span><%= @movie.year %></span>
+        </div>
+      <% end %>
+      
+      <% if @movie.duration %>
+        <div class="meta-item">
+          <span>⏱</span>
+          <span><%= @movie.duration %> min</span>
+        </div>
+      <% end %>
+      
+      <div class="rating">⭐ 8.5</div>
+    </div>
+    
+    <% if @movie.synopsis.present? %>
+      <p class="movie-synopsis"><%= @movie.synopsis %></p>
+    <% end %>
+    
+    <% if @movie.categories.any? %>
+      <div class="movie-categories-hero">
+        <% @movie.categories.each do |category| %>
+          <span class="category-tag"><%= category.name %></span>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <div class="action-buttons">
+      <%= link_to movies_path, class: "btn-large btn-watch-now" do %>
+        ▶ Voltar ao Catálogo
+      <% end %>
+      
+      <% if user_signed_in? && @movie.user == current_user %>
+        <%= link_to edit_movie_path(@movie), class: "btn-large btn-edit-movie" do %>
+          ✏ Editar
+        <% end %>
+        
+        <%= link_to movie_path(@movie), method: :delete, data: { confirm: "Tem certeza que deseja deletar este filme?" }, class: "btn-large btn-delete" do %>
+          🗑 Deletar
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Movie Details Section -->
+<div class="movie-details-section">
+  <div class="details-grid">
+    <!-- Left Column: Additional Info -->
+    <div>
+      <div class="info-card">
+        <h3>📋 Informações do Filme</h3>
+        
+        <% if @movie.director.present? %>
+          <div class="info-item">
+            <span class="info-label">Diretor</span>
+            <span class="info-value"><%= @movie.director %></span>
+          </div>
+        <% end %>
+        
+        <% if @movie.year %>
+          <div class="info-item">
+            <span class="info-label">Ano de Lançamento</span>
+            <span class="info-value"><%= @movie.year %></span>
+          </div>
+        <% end %>
+        
+        <% if @movie.duration %>
+          <div class="info-item">
+            <span class="info-label">Duração</span>
+            <span class="info-value"><%= @movie.duration %> minutos</span>
+          </div>
+        <% end %>
+        
+        <div class="info-item">
+          <span class="info-label">Adicionado por</span>
+          <span class="info-value"><%= @movie.user.name %></span>
+        </div>
+        
+        <div class="info-item">
+          <span class="info-label">Data de Adição</span>
+          <span class="info-value"><%= @movie.created_at.strftime("%d/%m/%Y") %></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Column: Stats -->
+    <div>
+      <div class="info-card">
+        <h3>📊 Estatísticas</h3>
+        
+        <div class="info-item">
+          <span class="info-label">Comentários</span>
+          <span class="info-value"><%= @comments.count %></span>
+        </div>
+        
+        <div class="info-item">
+          <span class="info-label">Categorias</span>
+          <span class="info-value"><%= @movie.categories.count %></span>
+        </div>
+        
+        <div class="info-item">
+          <span class="info-label">Avaliação</span>
+          <span class="info-value">⭐ 8.5/10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Comments Section -->
+  <div class="comments-section">
+    <h2 class="section-header">
+      💬 Comentários (<%= @comments.count %>)
+    </h2>
+    
+    <% if user_signed_in? %>
+      <div class="comment-form">
+        <%= form_with(model: [@movie, @comment], local: true) do |f| %>
+          <%= f.text_area :body, placeholder: "Escreva seu comentário sobre o filme...", required: true %>
+          <%= f.submit "📝 Publicar Comentário", class: "btn-submit-comment" %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="comment-form">
+        <p style="color: #94a3b8; text-align: center; margin: 0;">
+          <%= link_to "Faça login", new_user_session_path, style: "color: #ef4444; font-weight: 700;" %> para comentar
+        </p>
+      </div>
+    <% end %>
+    
+    <div class="comments-list">
+      <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+          <div class="comment-card">
+            <div class="comment-header">
+              <div class="comment-author">
+                <div class="author-avatar">
+                  <%= comment.user&.name&.first&.upcase || "?" %>
+                </div>
+                <div class="author-info">
+                  <h4><%= comment.user&.name || "Anônimo" %></h4>
+                  <span class="comment-date"><%= time_ago_in_words(comment.created_at) %> atrás</span>
+                </div>
+              </div>
+              
+              <% if user_signed_in? && (comment.user == current_user || @movie.user == current_user) %>
+                <%= link_to movie_comment_path(@movie, comment), method: :delete, data: { confirm: "Deletar comentário?" }, class: "btn-delete-comment" do %>
+                  🗑 Deletar
+                <% end %>
+              <% end %>
+            </div>
+            
+            <p class="comment-body"><%= comment.body %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="empty-comments">
+          <p style="font-size: 3rem; margin-bottom: 1rem;">💭</p>
+          <p style="font-size: 1.2rem; color: #94a3b8;">Nenhum comentário ainda. Seja o primeiro!</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
