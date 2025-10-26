@@ -301,7 +301,7 @@ rails console
  Testes E2E com Cypress
 
 👨‍💻 Autor
-Seu Nome
+Cleane
 
 GitHub: @vidalcleane
 LinkedIn: www.linkedin.com/in/cleanevidal
